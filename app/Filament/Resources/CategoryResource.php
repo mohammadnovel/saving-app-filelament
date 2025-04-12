@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\DeleteAction;
 
 class CategoryResource extends Resource
 {
@@ -31,8 +32,14 @@ class CategoryResource extends Resource
     public static function table(Tables\Table $table): Tables\Table
     {
         return $table->columns([
-            Tables\Columns\TextColumn::make('name')
-                ->searchable(),
+            Tables\Columns\TextColumn::make('name')->searchable(),
+        ])->filters([
+            // Tambah filter jika perlu
+        ])->actions([
+            Tables\Actions\EditAction::make(),  // Edit button
+            DeleteAction::make(),  // Delete button
+        ])->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),  // Bulk delete
         ]);
     }
 
